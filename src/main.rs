@@ -1,3 +1,4 @@
+use merkle::{merkle_bt::{self, Nodex}, merkle::Node};
 use rand::rngs::OsRng;
 use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 use secp256k1::{PublicKey, SecretKey};
@@ -7,6 +8,8 @@ pub mod euclidean;
 pub mod randomwalk;
 pub mod singlewalk;
 pub mod merkle;
+
+use std::fmt::Display;
 
 pub fn shadow_tx_id_hash() -> Result<(SecretKey, PublicKey)> {
     let secp = secp256k1::Secp256k1::new();
@@ -35,4 +38,20 @@ pub fn shadow_decrypt_block_data(bits_size: usize, block_data: Vec<u8>) -> Resul
     Ok(shadow_data_decrypt)
 }
 
-fn main() {}
+fn main() {
+    let node = Nodex {
+        values: vec![1, 2, 3],
+        children: vec![
+            Nodex {
+                values: vec![4, 5],
+                children: vec![],
+            },
+            Nodex {
+                values: vec![6, 7],
+                children: vec![],
+            },
+        ],
+    };
+    let v:Vec<_> = node.vals().collect();
+    println!("{:?}", v);
+}

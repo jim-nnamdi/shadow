@@ -1,9 +1,5 @@
-// this is a test implementation
-// of a merkle tree algorithm node
-
-use serde::{Deserialize, Serialize};
-
 use crate::randomwalk::secp256k1;
+use serde::{Deserialize, Serialize};
 use std::{convert::AsRef, convert::From, fmt::Display};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -52,25 +48,29 @@ impl From<Vec<String>> for Tree {
 
 impl From<Vec<Node>> for Tree {
     fn from(value: Vec<Node>) -> Self {
-      if value.len() > 1 {
-        for x in value.into_iter() {
-            let hash_node = secp256k1::_hash_merkle_nodex(Box::new(x.clone())).unwrap();
-            let tree = Tree {
-                root: Some(Box::new(x.clone())),
-                leaves: vec![Some(Box::new(x))],
-                hash: hash_node,
-            };
-            return tree;
+        if value.len() > 1 {
+            for x in value.into_iter() {
+                let hash_node = secp256k1::_hash_merkle_nodex(Box::new(x.clone())).unwrap();
+                let tree = Tree {
+                    root: Some(Box::new(x.clone())),
+                    leaves: vec![Some(Box::new(x))],
+                    hash: hash_node,
+                };
+                return tree;
+            }
         }
-      }
         Tree::default()
     }
 }
 
 impl Default for Tree {
-  fn default() -> Self {
-      Tree { root: None, leaves: vec![None], hash: String::from("") }
-  }
+    fn default() -> Self {
+        Tree {
+            root: None,
+            leaves: vec![None],
+            hash: String::from(""),
+        }
+    }
 }
 
 impl Default for Node {
@@ -127,7 +127,7 @@ impl Tree {
             }
             let trdata = Tree::from(hashed_nodes);
             let sctdata = Tree::from(parents);
-            dbg!(trdata, sctdata);
+            dbg!(trdata, sctdata); 
         }
         Node::default()
     }
