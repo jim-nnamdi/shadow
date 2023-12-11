@@ -3,9 +3,10 @@ use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 use secp256k1::{PublicKey, SecretKey};
 
 use anyhow::{Ok, Result};
-mod euclidean;
-mod randomwalk;
-mod singlewalk;
+pub mod euclidean;
+pub mod randomwalk;
+pub mod singlewalk;
+pub mod merkle;
 
 pub fn shadow_tx_id_hash() -> Result<(SecretKey, PublicKey)> {
     let secp = secp256k1::Secp256k1::new();
