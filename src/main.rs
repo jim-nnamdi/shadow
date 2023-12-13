@@ -1,4 +1,4 @@
-use merkle::{merkle_bt::{self, Nodex}, merkle::Node};
+use merkle::merkle_bt::Nodex;
 use rand::rngs::OsRng;
 use rsa::{Pkcs1v15Encrypt, RsaPrivateKey, RsaPublicKey};
 use secp256k1::{PublicKey, SecretKey};
@@ -9,8 +9,6 @@ pub mod randomwalk;
 pub mod singlewalk;
 pub mod merkle;
 
-use std::fmt::Display;
-
 pub fn shadow_tx_id_hash() -> Result<(SecretKey, PublicKey)> {
     let secp = secp256k1::Secp256k1::new();
     let (sk, pk) = secp.generate_keypair(&mut OsRng);
@@ -20,6 +18,7 @@ pub fn shadow_tx_id_hash() -> Result<(SecretKey, PublicKey)> {
 pub fn shadow_block_id_hash() -> Result<(SecretKey, PublicKey)> {
     let secp = secp256k1::Secp256k1::new();
     let (sk, pk) = secp.generate_keypair(&mut OsRng);
+    dbg!(sk, pk);
     Ok((sk, pk))
 }
 
