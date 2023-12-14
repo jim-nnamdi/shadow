@@ -8,6 +8,7 @@ pub mod euclidean;
 pub mod randomwalk;
 pub mod singlewalk;
 pub mod merkle;
+pub mod p2psim;
 
 pub fn shadow_tx_id_hash() -> Result<(SecretKey, PublicKey)> {
     let secp = secp256k1::Secp256k1::new();
